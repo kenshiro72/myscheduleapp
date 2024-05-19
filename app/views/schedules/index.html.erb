@@ -1,0 +1,47 @@
+<div class="box">
+  <h3>予定一覧</h3>
+  <p><%= button_to '新規登録', {controller: 'schedules', action: 'new'}, {method: :get }%></p>
+</div>
+
+<% if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>タイトル</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>終日</th>
+      <th>更新日時</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.id %></td>
+        <td><%= schedule.title %></td>
+        <td><%= schedule.startdate.strftime("%Y/%m/%d")   %></td>
+        <td><%= schedule.enddate.strftime("%Y/%m/%d")   %></td>
+        <td><%= convert_boolean_to_character(schedule.allday)%></td>
+        <td><%= schedule.updated_at.to_s(:datetime_jp) %></td>
+        <td>
+            <%= link_to "詳細", schedule %>
+        </td>
+        <td>
+          <%= link_to "編集", [:edit, schedule] %>
+        </td>
+        <td>
+          <%= link_to "削除",  schedule, method: :delete, data: { confirm: "予定を削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="box">
+<p>予定合計:<%= Schedule.count %>件</p>
+<p>本日の日付:<%= Date.today.strftime("%Y/%m/%d")   %></p>
+</div>

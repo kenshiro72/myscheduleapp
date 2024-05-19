@@ -1,0 +1,14 @@
+ja:
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+  activerecord:
+    models:
+      schedule: スケジュール
+    attributes:
+      schedule:
+        title: タイトル
+        startdate: 開始日
+        enddate: 終了日
+        memo: スケジュールメモ
+        allday: 終日
