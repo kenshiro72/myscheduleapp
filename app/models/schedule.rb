@@ -4,7 +4,8 @@ class Schedule < ApplicationRecord
     validates :startdate, presence: true
     validates :enddate, presence: true
     validates :memo, length: {maximum: 500}
-    validate :enddate_cannot_be_before_startdate
+    validate :enddate_cannot_be_before_startdate 
+    # validates :allday, inclusion: [true, false]
 
     def enddate_cannot_be_before_startdate
         if !enddate.nil? && !startdate.nil? && enddate < startdate

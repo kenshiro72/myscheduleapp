@@ -17,6 +17,7 @@ class SchedulesController < ApplicationController
       flash[:notice] = "スケジュールの登録に失敗しました"
       render "new"
     end
+
   end
 
   def show
@@ -29,7 +30,15 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule = Schedule.find(params[:id])
-    if @schedule.update(params.require(:schedule).permit(:title, :startdate, :enddate, :allday, :memo))
+    p = params.require(:schedule).permit(:title, :startdate, :enddate, :allday, :memo)
+    puts p
+    puts p.include?(:allday)
+    if p.include?(:allday) == false
+      p[:allday] = false
+    end
+    puts p
+    
+    if @schedule.update(p)
       flash[:notice] = "スケジュールを更新しました"
       redirect_to :schedules
     else
